@@ -1,18 +1,20 @@
 student_list = [
-{"Student": "John", "year": 13, "Achieved Credits": 27,"Merit Credits": 42,"Excellence Credits":23}, 
-{"Student": "Adam", "year": 12, "Achieved Credits": 25,"Merit Credits": 31,"Excellence Credits":47},
-{"Student": "Steven", "year": 13, "Achieved Credits": 35,"Merit Credits": 11,"Excellence Credits":27},
-{"Student": "Josh", "year": 12, "Achieved Credits": 23,"Merit Credits": 29,"Excellence Credits":55},
-{"Student": "Justin", "year": 12, "Achieved Credits": 24,"Merit Credits": 22,"Excellence Credits":36},
+{"Student": "John", "year": 13, "Not Achieved Credits": 5, "Achieved Credits": 27,"Merit Credits": 42,"Excellence Credits":23}, 
+{"Student": "Adam", "year": 12, "Not Achieved Credits": 0, "Achieved Credits": 25,"Merit Credits": 31,"Excellence Credits":60},
+{"Student": "Steven", "year": 13, "Not Achieved Credits": 4, "Achieved Credits": 35,"Merit Credits": 11,"Excellence Credits":27},
+{"Student": "Josh", "year": 12, "Not Achieved Credits": 11, "Achieved Credits": 23,"Merit Credits": 29,"Excellence Credits":55},
+{"Student": "Justin", "year": 12, "Not Achieved Credits": 8, "Achieved Credits": 24,"Merit Credits": 22,"Excellence Credits":36},
 ]
-def choice_1():
+def student_summary():
     print(student_list)
-def choice_2():
+    choice_lists()
+def ncea_passed():
     for i in student_list:
         total_credits = i["Achieved Credits"] + i["Merit Credits"] + i["Excellence Credits"]
         if total_credits > 59:
             print(f"{i["Student"]} has passed with {total_credits} credits")
-def choice_3():
+    choice_lists()
+def endorsed_students():
     for i in student_list:
         total_credits = i["Achieved Credits"] + i["Merit Credits"] + i["Excellence Credits"]
         if total_credits > 59:
@@ -26,20 +28,53 @@ def choice_3():
                 print(f"{i["Student"]} has Achieved Endorsement")
         else:
             print(f"{i["Student"]} has Not Achieved Endorsement")
-
-def choice_4():
-    year_level = int(input(f"What Year Level Would You Like To Observe"))
+    choice_lists()
+def year_levels():
+    year_level = int(input(f"What Year Level Would You Like To Observe "))
     for student in student_list:
-        if ["Year"] == year_level:
-            print(student_list)
-
-"""
-def choice_5():
-
-def choice_6():
-"""
+        if student["year"] == year_level:
+            print(student)
+    choice_lists()
+def add_credits():
+    student_found = None
+    student_name = input(f"What is the name of the student you want to add credits to? ").lower()
+    for student in student_list:
+        if student["Student"].lower() == student_name:
+            student_found = student
+            break
+    if student_found:
+        while True:
+            credit_type = input(f"What kind of credits would you like to add, Not Achieved, Achieved, Merit & Excellence. ").title().strip()
+            key = f"{credit_type} Credits"
+            if key in student_found:
+                credits_added = int(input(f"How Many Credits would you like to add? "))
+                student_found[key] += credits_added
+                print(f"{student_found["Student"]} now has {student_found[key]} {credit_type} credits")
+                break
+            else:
+                print(f"Invalid Credit Type. ")
+                continue
+    elif not student_found:
+        print(f"Student Name does not exist.")
+        add_credits()
+        return
+    choice_lists()
+def add_students():
+    name = input(f"What is the name of the student you would like to add? ").strip().title()
+    while True:
+        try:
+            year = int(input(f"What is the {name}'s year level? "))
+            break
+        except ValueError:
+            print(f"Invalid Year Level")
+    credits = {}
+    types = ["Not Achieved", "Achieved", "Merit", "Excellence"]
+    for credit_types in types:
+        while True:
+            try:
+                amount
 def choice_lists(): 
-    print(f"Welcome to the Student Database, What Would You Like To Do? ")
+    print(f"\nWelcome to the Student Database, What Would You Like To Do? ")
     print(f"1. Summary Of Student Data")
     print(f"2. List Of Students That Have Passed NCEA")
     print(f"3. List Of Students That Have An Endorsement")
@@ -50,17 +85,17 @@ def choice_lists():
         try:
             choice = int(input(f"What Is Your Choice? "))
             if choice == 6: 
-                choice_6()
+                add_students()
             elif choice == 5:
-                choice_5()
+                add_credits()
             elif choice == 4:
-                choice_4()
+                year_levels()
             elif choice == 3:
-                choice_3()
+                endorsed_students()
             elif choice == 2:
-                choice_2()
+                ncea_passed()
             elif choice == 1:
-                choice_1()
+                student_summary()
             else: 
                 print(f"Invalid choice.")
                 continue
