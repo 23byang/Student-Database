@@ -1,9 +1,9 @@
 student_list = [
-{"Student": "John", "year": 13, "Not Achieved Credits": 5, "Achieved Credits": 27,"Merit Credits": 42,"Excellence Credits":23}, 
-{"Student": "Adam", "year": 12, "Not Achieved Credits": 0, "Achieved Credits": 25,"Merit Credits": 31,"Excellence Credits":60},
-{"Student": "Steven", "year": 13, "Not Achieved Credits": 4, "Achieved Credits": 35,"Merit Credits": 11,"Excellence Credits":27},
-{"Student": "Josh", "year": 12, "Not Achieved Credits": 11, "Achieved Credits": 23,"Merit Credits": 29,"Excellence Credits":55},
-{"Student": "Justin", "year": 12, "Not Achieved Credits": 8, "Achieved Credits": 24,"Merit Credits": 22,"Excellence Credits":36},
+{"Student": "John", "Year": 13, "Not Achieved Credits": 5, "Achieved Credits": 27,"Merit Credits": 42,"Excellence Credits":23}, 
+{"Student": "Adam", "Year": 12, "Not Achieved Credits": 0, "Achieved Credits": 25,"Merit Credits": 31,"Excellence Credits":60},
+{"Student": "Steven", "Year": 13, "Not Achieved Credits": 4, "Achieved Credits": 35,"Merit Credits": 11,"Excellence Credits":27},
+{"Student": "Josh", "Year": 12, "Not Achieved Credits": 11, "Achieved Credits": 23,"Merit Credits": 29,"Excellence Credits":55},
+{"Student": "Justin", "Year": 12, "Not Achieved Credits": 8, "Achieved Credits": 24,"Merit Credits": 22,"Excellence Credits":36},
 ]
 def student_summary():
     print(student_list)
@@ -32,7 +32,7 @@ def endorsed_students():
 def year_levels():
     year_level = int(input(f"What Year Level Would You Like To Observe "))
     for student in student_list:
-        if student["year"] == year_level:
+        if student["Year"] == year_level:
             print(student)
     choice_lists()
 def add_credits():
@@ -61,6 +61,10 @@ def add_credits():
     choice_lists()
 def add_students():
     name = input(f"What is the name of the student you would like to add? ").strip().title()
+    for student in student_list:
+        if student["Student"] in student_list:
+            print(f"Student already exists.")
+            choice_lists()
     while True:
         try:
             year = int(input(f"What is the {name}'s year level? "))
@@ -72,7 +76,18 @@ def add_students():
     for credit_types in types:
         while True:
             try:
-                amount
+                amount = int(input(f"How Many {credit_types} credits? "))
+                if amount < 0:
+                    print(f"Credits cannot be negative.")
+                    continue
+                credits[f"{credit_types} Credits"] = amount
+                break
+            except ValueError:
+                print(f"Invalid Input, please input a positive integer.")
+    new_student = {"Student": name , "Year": year , "Not Achieved Credits": credits["Not Achieved Credits"], "Achieved Credits": credits["Achieved Credits"],"Merit Credits": credits["Merit Credits"],"Excellence Credits":credits["Excellence Credits"]}
+    student_list.append(new_student)
+    print(f"{name} has been added to the database.")
+    choice_lists()
 def choice_lists(): 
     print(f"\nWelcome to the Student Database, What Would You Like To Do? ")
     print(f"1. Summary Of Student Data")
