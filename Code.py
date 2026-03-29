@@ -1,28 +1,24 @@
+"""Dictionary for storing student information."""
 student_list = [
 {"Student": "John", "Year": 13, "Not Achieved Credits": 5, "Achieved Credits": 27,"Merit Credits": 42,"Excellence Credits":23}, 
 {"Student": "Adam", "Year": 12, "Not Achieved Credits": 0, "Achieved Credits": 25,"Merit Credits": 31,"Excellence Credits":60},
 {"Student": "Steven", "Year": 13, "Not Achieved Credits": 4, "Achieved Credits": 35,"Merit Credits": 11,"Excellence Credits":27},
 {"Student": "Josh", "Year": 12, "Not Achieved Credits": 11, "Achieved Credits": 23,"Merit Credits": 29,"Excellence Credits":55},
 {"Student": "Justin", "Year": 12, "Not Achieved Credits": 8, "Achieved Credits": 24,"Merit Credits": 22,"Excellence Credits":36},
+{"Student": "Smith", "Year": 13, "Not Achieved Credits": 3, "Achieved Credits": 20,"Merit Credits": 12,"Excellence Credits":96},
+{"Student": "Alex", "Year": 12, "Not Achieved Credits": 7, "Achieved Credits": 26,"Merit Credits": 42,"Excellence Credits":44},
+{"Student": "Jackson", "Year": 11, "Not Achieved Credits": 0, "Achieved Credits": 20,"Merit Credits": 21,"Excellence Credits":25},
 ]
 pass_requisite = 60
 
-
+"""Code for function 1, which displays the data of all students"""
 def student_summary(database):
     for student in database:
         print(student)
     choice_lists()
 
 
-def ncea_passed_calculator(database):
-    passed_list = []
-    for student in database:
-        total_credits = (student["Achieved Credits"] + student["Merit Credits"] + student["Excellence Credits"])
-        if total_credits >= pass_requisite:
-            passed_list.append(f"{student["Student"]} (Total: {total_credits} credits)")
-    return passed_list
-
-
+"""First half of function 3, which calls the second half's function and displays the returned value."""
 def ncea_passed(database):
     result = ncea_passed_calculator(database)
     if result:
@@ -34,6 +30,17 @@ def ncea_passed(database):
     choice_lists()
 
 
+"""Second half of the Code for function 2, which displays the list of students that have passed NCEA, which requires 60 credits at achieved or higher. 
+This segment of code calculates who passes and who does not and returns the list to the function that calls this one."""
+def ncea_passed_calculator(database):
+    passed_list = []
+    for student in database:
+        total_credits = (student["Achieved Credits"] + student["Merit Credits"] + student["Excellence Credits"])
+        if total_credits >= pass_requisite:
+            passed_list.append(f"{student["Student"]} (Total: {total_credits} credits)")
+    return passed_list
+
+"""Code for function 3, displays the students that have earnt NCEA endorsements from merit or higher."""
 def endorsed_students(database):
     for i in database:
         total_credits = i["Achieved Credits"] + i["Merit Credits"] + i["Excellence Credits"]
@@ -50,7 +57,7 @@ def endorsed_students(database):
             print(f"{i["Student"]} has Not Achieved Endorsement")
     choice_lists()
 
-
+"""Code for function, which sorts students based off of a year level that the user inputs."""
 def year_levels(database):
     while True:
         try:
@@ -68,7 +75,7 @@ def year_levels(database):
             break
     choice_lists()
 
-
+"""Code for function 5, enables the user to add credits to any existing student, of any type."""
 def add_credits(database):
     student_found = None
     while student_found is None:
@@ -105,7 +112,7 @@ def add_credits(database):
         return
     choice_lists()
 
-
+"""Code for function 6, allows user to add a new student to the dictionary, with all of the seperate values."""
 def add_students(database):
     name = input(f"What is the name of the student you would like to add? ").strip().lower().title()
     name_exist = False
@@ -144,7 +151,7 @@ def add_students(database):
     print(f"{name} has been added to the database.")
     choice_lists()
 
-
+"""Code for main menu, includes the display and code that filters through options, running various functions from above based off of user input."""
 def choice_lists(): 
     print(f"\nWelcome to the Student Database, What Would You Like To Do? ")
     print(f"1. Summary Of Student Data")
