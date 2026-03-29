@@ -26,7 +26,7 @@ def ncea_passed(database):
         for students in result:
             print(students)
     else:
-        print(f"No Students Have Passed.")
+        print(f"No students have passed.")
     choice_lists()
 
 
@@ -61,17 +61,17 @@ def endorsed_students(database):
 def year_levels(database):
     while True:
         try:
-            year_level = int(input(f"What Year Level Would You Like To Observe "))
+            year_level = int(input(f"What year level would you like to observe "))
             if year_level in range(11,14):
                 for student in database:
                     if student["Year"] == year_level:
                         print(student)
                 break
             else:
-                print(f"Invalid Year, Please choose between 11-13")
+                print(f"Invalid year, please choose between 11-13")
                 break
         except ValueError:
-            print(f"Invalid Year, Please choose between 11-13")
+            print(f"Invalid year, please choose between 11-13")
             break
     choice_lists()
 
@@ -85,7 +85,7 @@ def add_credits(database):
                 student_found = student
                 break
         if not student_found:
-            print(f"Student Name does not exist.")
+            print(f"Student name does not exist.")
     if student_found:
         while True:
             credit_type = input(f"What kind of credits would you like to add, Not Achieved, Achieved, Merit & Excellence. ").title().strip()
@@ -93,21 +93,21 @@ def add_credits(database):
             if key in student_found:
                 while True:
                     try:
-                        credits_added = int(input(f"How Many Credits would you like to add? "))
+                        credits_added = int(input(f"How many credits would you like to add? "))
                         if credits_added > 0:
                             student_found[key] += credits_added
                             print(f"{student_found["Student"]} now has {student_found[key]} {credit_type} credits")
                             break
                         else:
-                            print(f"Invalid Number, Please input a positive integer.")
+                            print(f"Invalid input, please input a positive integer.")
                     except ValueError:
-                        print(f"Invalid number, Please input a positive integer.")
+                        print(f"Invalid input, please input a positive integer.")
                 break
             else:
-                print(f"Invalid Credit Type. ")
+                print(f"Invalid credit type. ")
                 continue
     elif not student_found:
-        print(f"Student Name does not exist.")
+        print(f"Student name does not exist.")
         add_credits()
         return
     choice_lists()
@@ -120,7 +120,7 @@ def add_students(database):
         if student["Student"] == name:
             name_exist = True
     if name_exist == True:
-        print(f"Student Already Exists, returning to main menu.")
+        print(f"Student already exists, returning to main menu.")
         return choice_lists()
     else:
         while True:
@@ -129,10 +129,10 @@ def add_students(database):
                 if year in range (11,14):
                     break
                 else:
-                    print(f"Invalid Year Level")
+                    print(f"Invalid year level")
                 continue
             except ValueError:
-                print(f"Invalid Year Level")
+                print(f"Invalid year level")
     credits = {}
     types = ["Not Achieved", "Achieved", "Merit", "Excellence"]
     for credit_types in types:
@@ -145,7 +145,7 @@ def add_students(database):
                 credits[f"{credit_types} Credits"] = amount
                 break
             except ValueError:
-                print(f"Invalid Input, please input a positive integer.")
+                print(f"Invalid input, please input a positive integer.")
     new_student = {"Student": name , "Year": year , "Not Achieved Credits": credits["Not Achieved Credits"], "Achieved Credits": credits["Achieved Credits"],"Merit Credits": credits["Merit Credits"],"Excellence Credits":credits["Excellence Credits"]}
     database.append(new_student)
     print(f"{name} has been added to the database.")
@@ -162,7 +162,7 @@ def choice_lists():
     print(f"6. Add New Students And Credit Data")
     while True:
         try:
-            choice = int(input(f"What Is Your Choice? "))
+            choice = int(input(f"What is your choice? "))
             if choice == 6: 
                 add_students(student_list)
             elif choice == 5:
